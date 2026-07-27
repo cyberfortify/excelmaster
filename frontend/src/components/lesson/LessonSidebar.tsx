@@ -1,5 +1,9 @@
 import { NavLink } from "react-router-dom";
 import { lessonCategories } from "../../data/lessons";
+import { CheckCircle2 } from "lucide-react";
+import {
+  useLessonProgressContext,
+} from "../../context/LessonProgressContext";
 
 interface Props {
   currentSlug?: string;
@@ -8,6 +12,10 @@ interface Props {
 export default function LessonSidebar({
   currentSlug,
 }: Props) {
+
+  const {
+    completedLessons,
+  } = useLessonProgressContext();
 
   const currentCategory = lessonCategories.find((category) => {
 
@@ -73,14 +81,38 @@ export default function LessonSidebar({
                   key={lesson.slug}
                   to={`/lesson/${lesson.slug}`}
                   className={({ isActive }) =>
-                    `block rounded-lg px-3 py-2 text-sm transition ${
-                      isActive
-                        ? "bg-emerald-600 text-white"
-                        : "text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"
+                    `block rounded-lg px-3 py-2 text-sm transition ${isActive
+                      ? "bg-emerald-600 text-white"
+                      : "text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"
                     }`
                   }
                 >
-                  {lesson.title}
+                  {({ isActive }) => (
+
+                    <div className="flex items-center justify-between">
+
+                      <span className="truncate">
+
+                        {lesson.title}
+
+                      </span>
+
+                      {completedLessons.includes(lesson.slug) ? (
+
+                        <CheckCircle2
+                          size={18}
+                          className={
+                            isActive
+                              ? "text-white"
+                              : "text-emerald-500"
+                          }
+                        />
+
+                      ) : null}
+
+                    </div>
+
+                  )}
                 </NavLink>
 
               ))}

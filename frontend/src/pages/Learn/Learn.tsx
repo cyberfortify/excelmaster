@@ -1,4 +1,5 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { getProgress } from "../../api/progress";
 import { BookOpen, Clock, Target } from "lucide-react";
 
 import SearchBar from "../../components/learn/SearchBar";
@@ -9,6 +10,7 @@ import { lessonCategories } from "../../data/lessons";
 
 export default function Learn() {
     const [search, setSearch] = useState("");
+    const [progressList, setProgressList] = useState([]);
 
     const filteredCategories = useMemo(() => {
         if (!search.trim()) return lessonCategories;
@@ -37,6 +39,29 @@ export default function Learn() {
 
         return count + lessons.length;
     }, 0);
+
+
+    useEffect(() => {
+
+        const loadProgress = async () => {
+
+            try {
+
+                const data = await getProgress();
+
+                setProgressList(data);
+
+            } catch (err) {
+
+                console.error(err);
+
+            }
+
+        };
+
+        loadProgress();
+
+    }, []);
 
     return (
         <main className="bg-white dark:bg-[#0b0f0d]">
@@ -116,6 +141,11 @@ export default function Learn() {
                             <CategoryCard
                                 key={category.id}
                                 category={category}
+                                progress={
+                                    progressList.find(
+                                        (item) => item.module_slug === category.id
+                                    )
+                                }
                             />
 
                         ))}

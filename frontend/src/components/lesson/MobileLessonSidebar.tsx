@@ -1,7 +1,20 @@
-import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import {
+  Menu,
+  X,
+  CheckCircle2,
+} from "lucide-react";
 import { lessonCategories } from "../../data/lessons";
+
+import { useEffect, useState } from "react";
+
+import {
+  getCompletedLessons,
+} from "../../api/progress";
+
+import type {
+  LessonStatus,
+} from "../../api/progress";
 
 interface MobileLessonSidebarProps {
   currentSlug?: string;
@@ -10,6 +23,7 @@ interface MobileLessonSidebarProps {
 export default function MobileLessonSidebar({
   currentSlug,
 }: MobileLessonSidebarProps) {
+  const [completedLessons, setCompletedLessons] = useState<string[]>([]);
   const [open, setOpen] = useState(false);
 
   const currentCategory = lessonCategories.find((category) => {
@@ -27,6 +41,37 @@ export default function MobileLessonSidebar({
     );
   });
 
+
+  useEffect(() => {
+
+    if (!currentCategory) return;
+
+    const loadCompletedLessons = async () => {
+
+      try {
+
+        const lessonStatus: LessonStatus[] =
+          await getCompletedLessons(currentCategory.id);
+
+        setCompletedLessons(
+
+          lessonStatus
+            .filter(item => item.completed)
+            .map(item => item.lesson_slug)
+
+        );
+
+      } catch (error) {
+
+        console.error(error);
+
+      }
+
+    };
+
+    loadCompletedLessons();
+
+  }, [currentCategory]);
   if (!currentCategory) return null;
 
   const sections = currentCategory.sections ?? [
@@ -46,9 +91,8 @@ export default function MobileLessonSidebar({
       >
         <Menu
           size={18}
-          className={`transition-transform duration-300 ${
-            open ? "rotate-90" : "rotate-0"
-          }`}
+          className={`transition-transform duration-300 ${open ? "rotate-90" : "rotate-0"
+            }`}
         />
 
         {currentCategory.title}
@@ -58,19 +102,17 @@ export default function MobileLessonSidebar({
 
       <div
         onClick={() => setOpen(false)}
-        className={`fixed inset-0 z-40 bg-black/40 transition-opacity duration-300 ${
-          open
-            ? "pointer-events-auto opacity-100"
-            : "pointer-events-none opacity-0"
-        }`}
+        className={`fixed inset-0 z-40 bg-black/40 transition-opacity duration-300 ${open
+          ? "pointer-events-auto opacity-100"
+          : "pointer-events-none opacity-0"
+          }`}
       />
 
       {/* Drawer */}
 
       <aside
-        className={`fixed left-0 top-0 z-50 h-screen w-80 overflow-y-auto bg-white shadow-2xl transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] dark:bg-slate-950 ${
-          open ? "translate-x-0" : "-translate-x-full"
-        }`}
+        className={`fixed left-0 top-0 z-50 h-screen w-80 overflow-y-auto bg-white shadow-2xl transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] dark:bg-slate-950 ${open ? "translate-x-0" : "-translate-x-full"
+          }`}
       >
         <div className="sticky top-0 flex items-center justify-between border-b bg-white p-5 dark:bg-slate-950">
 
@@ -115,14 +157,38 @@ export default function MobileLessonSidebar({
                     to={`/lesson/${lesson.slug}`}
                     onClick={() => setOpen(false)}
                     className={({ isActive }) =>
-                      `block rounded-lg px-3 py-2 text-sm transition ${
-                        isActive
-                          ? "bg-emerald-600 text-white"
-                          : "text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"
+                      `block rounded-lg px-3 py-2 text-sm transition ${isActive
+                        ? "bg-emerald-600 text-white"
+                        : "text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"
                       }`
                     }
                   >
-                    {lesson.title}
+                    {({ isActive }) => (
+
+                      <div className="flex items-center justify-between">
+
+                        <span className="truncate">
+
+                          {lesson.title}
+
+                        </span>
+
+                        {completedLessons.includes(lesson.slug) ? (
+
+                          <CheckCircle2
+                            size={18}
+                            className={
+                              isActive
+                                ? "text-white"
+                                : "text-emerald-500"
+                            }
+                          />
+
+                        ) : null}
+
+                      </div>
+
+                    )}
                   </NavLink>
 
                 ))}
