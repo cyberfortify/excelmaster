@@ -4,16 +4,14 @@ interface InfoBoxProps {
   children: React.ReactNode;
 }
 
-export default function InfoBox({
-  children,
-}: InfoBoxProps) {
+export default function InfoBox({ children }: InfoBoxProps) {
   return (
-    <div className="my-8 flex gap-4 rounded-2xl border border-blue-200 bg-blue-50 p-5 dark:border-blue-900/40 dark:bg-blue-900/10">
+    <div className="my-6 flex gap-2.5 rounded-xl border border-blue-200 bg-blue-50 p-4 sm:my-8 sm:gap-4 sm:rounded-2xl sm:p-5 dark:border-blue-900/40 dark:bg-blue-900/10">
+      <Info className="mt-0.5 shrink-0 text-blue-600 sm:mt-1" size={18} />
 
-      <Info className="mt-1 text-blue-600" size={22} />
-
-      <div>{children}</div>
-
+      <div className="text-sm leading-relaxed text-slate-700 sm:text-base dark:text-slate-300">
+        {children}
+      </div>
     </div>
   );
 }

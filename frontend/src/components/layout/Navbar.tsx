@@ -3,6 +3,7 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import { Menu, X, ChevronDown, LogOut, LayoutDashboard } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "../../context/AuthContext";
+import { Sparkles } from "lucide-react";
 
 const navItems = [
   { label: "Learn", path: "/learn" },
@@ -50,8 +51,9 @@ export default function Navbar() {
 
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2.5">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gray-900 text-sm font-semibold text-white dark:bg-white dark:text-gray-900">
+          <div className="relative flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-[#2fa866] to-[#175c37] text-sm font-bold text-white shadow-md shadow-emerald-900/20 sm:h-9 sm:w-9">
             E
+            <Sparkles className="absolute -right-1 -top-1 h-3 w-3 text-emerald-300" />
           </div>
           <span className="text-[15px] font-semibold text-gray-900 dark:text-white">
             ExcelMaster
@@ -65,10 +67,9 @@ export default function Navbar() {
               key={item.path}
               to={item.path}
               className={({ isActive }) =>
-                `rounded-full px-3.5 py-1.5 text-[13px] font-medium transition-colors ${
-                  isActive
-                    ? "bg-white text-gray-900 shadow-sm dark:bg-white/10 dark:text-white"
-                    : "text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+                `rounded-full px-3.5 py-1.5 text-[13px] font-medium transition-colors ${isActive
+                  ? "bg-white text-gray-900 shadow-sm dark:bg-white/10 dark:text-white"
+                  : "text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
                 }`
               }
             >
@@ -167,10 +168,9 @@ export default function Navbar() {
                   to={item.path}
                   onClick={() => setMobileOpen(false)}
                   className={({ isActive }) =>
-                    `rounded-lg px-3 py-2.5 text-sm font-medium ${
-                      isActive
-                        ? "bg-gray-100 text-gray-900 dark:bg-white/10 dark:text-white"
-                        : "text-gray-600 dark:text-gray-300"
+                    `rounded-lg px-3 py-2.5 text-sm font-medium ${isActive
+                      ? "bg-gray-100 text-gray-900 dark:bg-white/10 dark:text-white"
+                      : "text-gray-600 dark:text-gray-300"
                     }`
                   }
                 >

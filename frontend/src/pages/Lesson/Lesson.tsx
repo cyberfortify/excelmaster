@@ -56,6 +56,9 @@ export default function Lesson() {
         previous={previousLesson}
         next={nextLesson}
         nextModule={nextModule}
+
+        currentModuleTitle={currentCategory.title}
+        currentModuleLessons={moduleLessons.length}
       />
 
     </div>

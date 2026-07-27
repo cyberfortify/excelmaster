@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Eye, EyeOff, Loader2 } from "lucide-react";
+import { Eye, EyeOff, Loader2, Sparkles } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 
 export default function Login() {
@@ -42,46 +42,44 @@ export default function Login() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4 py-12 dark:bg-[#0b0f0d]">
-      <div className="w-full max-w-[400px]">
-
+    <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4 py-8 sm:px-4 sm:py-12 dark:bg-[#0b0f0d]">
+      <div className="w-full max-w-[380px] sm:max-w-[400px]">
         {/* Logo */}
-        <div className="mb-8 flex justify-center">
+        <div className="mb-6 flex justify-center sm:mb-8">
           <Link to="/" className="flex items-center gap-2.5">
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gray-900 text-sm font-semibold text-white dark:bg-white dark:text-gray-900">
+            <div className="relative flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-[#2fa866] to-[#175c37] text-sm font-bold text-white shadow-md shadow-emerald-900/20 sm:h-9 sm:w-9">
               E
+              <Sparkles className="absolute -right-1 -top-1 h-3 w-3 text-emerald-300" />
             </div>
-            <span className="text-[16px] font-semibold text-gray-900 dark:text-white">
-              ExcelMaster
+            <span className="text-sm font-semibold text-gray-900 sm:text-[16px] dark:text-white">
+              Excel<span className="text-[#1e8449]">Master</span>
             </span>
           </Link>
         </div>
 
         {/* Card */}
-        <div className="rounded-2xl border border-gray-100 bg-white p-8 shadow-sm dark:border-white/10 dark:bg-[#121614]">
-
-          <div className="mb-6 text-center">
-            <h1 className="text-xl font-semibold text-gray-900 dark:text-white">
+        <div className="rounded-xl border border-gray-100 bg-white p-5 shadow-sm sm:rounded-2xl sm:p-8 dark:border-white/10 dark:bg-[#121614]">
+          <div className="mb-5 text-center sm:mb-6">
+            <h1 className="text-lg font-semibold text-gray-900 sm:text-xl dark:text-white">
               Welcome back
             </h1>
-            <p className="mt-1.5 text-[13px] text-gray-500 dark:text-gray-400">
+            <p className="mt-1.5 text-xs text-gray-500 sm:text-[13px] dark:text-gray-400">
               Log in to continue your Excel journey
             </p>
           </div>
 
           {error && (
-            <div className="mb-5 rounded-lg border border-red-100 bg-red-50 px-3.5 py-2.5 text-[13px] font-medium text-red-600 dark:border-red-500/20 dark:bg-red-500/10 dark:text-red-400">
+            <div className="mb-4 rounded-lg border border-red-100 bg-red-50 px-3 py-2 text-xs font-medium text-red-600 sm:mb-5 sm:px-3.5 sm:py-2.5 sm:text-[13px] dark:border-red-500/20 dark:bg-red-500/10 dark:text-red-400">
               {error}
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-4">
-
+          <form onSubmit={handleSubmit} className="space-y-3.5 sm:space-y-4">
             {/* Email */}
             <div>
               <label
                 htmlFor="email"
-                className="mb-1.5 block text-[13px] font-medium text-gray-700 dark:text-gray-300"
+                className="mb-1.5 block text-xs font-medium text-gray-700 sm:text-[13px] dark:text-gray-300"
               >
                 Email
               </label>
@@ -90,7 +88,7 @@ export default function Login() {
                 type="email"
                 placeholder="you@example.com"
                 autoComplete="email"
-                className="w-full rounded-lg border border-gray-200 bg-white px-3.5 py-2.5 text-[14px] text-gray-900 outline-none transition-colors placeholder:text-gray-400 focus:border-gray-400 focus:ring-2 focus:ring-gray-100 dark:border-white/10 dark:bg-white/5 dark:text-white dark:placeholder:text-gray-500 dark:focus:border-white/30 dark:focus:ring-white/5"
+                className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-sm text-gray-900 outline-none transition-colors placeholder:text-gray-400 focus:border-[#1e8449] focus:ring-2 focus:ring-[#1e8449]/15 sm:px-3.5 sm:text-[14px] dark:border-white/10 dark:bg-white/5 dark:text-white dark:placeholder:text-gray-500 dark:focus:border-emerald-500/40 dark:focus:ring-emerald-500/10"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
@@ -98,16 +96,16 @@ export default function Login() {
 
             {/* Password */}
             <div>
-              <div className="mb-1.5 flex items-center justify-between">
+              <div className="mb-1.5 flex items-center justify-between gap-2">
                 <label
                   htmlFor="password"
-                  className="block text-[13px] font-medium text-gray-700 dark:text-gray-300"
+                  className="text-xs font-medium text-gray-700 sm:text-[13px] dark:text-gray-300"
                 >
                   Password
                 </label>
                 <Link
                   to="/forgot-password"
-                  className="text-[12px] font-medium text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+                  className="text-[11px] font-medium text-gray-500 hover:text-[#1e8449] sm:text-[12px] dark:text-gray-400 dark:hover:text-emerald-400"
                 >
                   Forgot password?
                 </Link>
@@ -119,7 +117,7 @@ export default function Login() {
                   type={showPassword ? "text" : "password"}
                   placeholder="Enter your password"
                   autoComplete="current-password"
-                  className="w-full rounded-lg border border-gray-200 bg-white px-3.5 py-2.5 pr-11 text-[14px] text-gray-900 outline-none transition-colors placeholder:text-gray-400 focus:border-gray-400 focus:ring-2 focus:ring-gray-100 dark:border-white/10 dark:bg-white/5 dark:text-white dark:placeholder:text-gray-500 dark:focus:border-white/30 dark:focus:ring-white/5"
+                  className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2.5 pr-10 text-sm text-gray-900 outline-none transition-colors placeholder:text-gray-400 focus:border-[#1e8449] focus:ring-2 focus:ring-[#1e8449]/15 sm:px-3.5 sm:pr-11 sm:text-[14px] dark:border-white/10 dark:bg-white/5 dark:text-white dark:placeholder:text-gray-500 dark:focus:border-emerald-500/40 dark:focus:ring-emerald-500/10"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
@@ -127,9 +125,10 @@ export default function Login() {
                   type="button"
                   onClick={() => setShowPassword((s) => !s)}
                   aria-label={showPassword ? "Hide password" : "Show password"}
-                  className="absolute right-0 top-0 flex h-full w-11 items-center justify-center text-gray-400 transition-colors hover:text-gray-700 dark:hover:text-gray-200"
+                  className="absolute right-0 top-0 flex h-full w-10 items-center justify-center text-gray-400 transition-colors hover:text-[#1e8449] sm:w-11 dark:hover:text-emerald-400"
                 >
-                  {showPassword ? <EyeOff size={17} /> : <Eye size={17} />}
+                  {showPassword ? <EyeOff size={16} className="sm:hidden" /> : <Eye size={16} className="sm:hidden" />}
+                  {showPassword ? <EyeOff size={17} className="hidden sm:block" /> : <Eye size={17} className="hidden sm:block" />}
                 </button>
               </div>
             </div>
@@ -138,30 +137,27 @@ export default function Login() {
             <button
               type="submit"
               disabled={loading}
-              className="flex w-full items-center justify-center gap-2 rounded-lg bg-gray-900 py-2.5 text-[14px] font-semibold text-white transition-colors hover:bg-gray-800 disabled:cursor-not-allowed disabled:opacity-60 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-100"
+              className="flex w-full items-center justify-center gap-2 rounded-lg bg-[#1e8449] py-2.5 text-sm font-semibold text-white shadow-md shadow-emerald-900/20 transition-colors hover:bg-[#166638] disabled:cursor-not-allowed disabled:opacity-60 sm:text-[14px]"
             >
               {loading && <Loader2 size={16} className="animate-spin" />}
               {loading ? "Logging in..." : "Login"}
             </button>
-
           </form>
 
-          <p className="mt-6 text-center text-[13px] text-gray-500 dark:text-gray-400">
+          <p className="mt-5 text-center text-xs text-gray-500 sm:mt-6 sm:text-[13px] dark:text-gray-400">
             Don't have an account?{" "}
             <Link
               to="/signup"
-              className="font-semibold text-gray-900 hover:underline dark:text-white"
+              className="font-semibold text-[#1e8449] hover:underline dark:text-emerald-400"
             >
               Sign up
             </Link>
           </p>
-
         </div>
 
-        <p className="mt-6 text-center text-[12px] text-gray-400 dark:text-gray-500">
+        <p className="mt-5 text-center text-[11px] text-gray-400 sm:mt-6 sm:text-[12px] dark:text-gray-500">
           By continuing, you agree to our Terms and Privacy Policy.
         </p>
-
       </div>
     </div>
   );

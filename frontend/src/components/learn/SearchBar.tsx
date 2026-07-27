@@ -5,34 +5,28 @@ interface SearchBarProps {
   onChange: (value: string) => void;
 }
 
-export default function SearchBar({
-  value,
-  onChange,
-}: SearchBarProps) {
+export default function SearchBar({ value, onChange }: SearchBarProps) {
   return (
-    <div className="mt-10 flex items-center rounded-2xl border border-gray-200 bg-white px-5 py-4 shadow-sm transition focus-within:border-[#1e8449] focus-within:ring-2 focus-within:ring-[#1e8449]/20">
-
-      <Search
-        size={20}
-        className="text-gray-400"
-      />
+    <div className="flex items-center rounded-xl border border-gray-200 bg-white px-4 py-3 shadow-sm transition focus-within:border-[#1e8449] focus-within:ring-2 focus-within:ring-[#1e8449]/20 sm:rounded-2xl sm:px-5 sm:py-4 dark:border-white/10 dark:bg-white/5">
+      <Search size={18} className="shrink-0 text-gray-400 sm:hidden" />
+      <Search size={20} className="hidden shrink-0 text-gray-400 sm:block" />
 
       <input
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder="Search lessons..."
-        className="ml-3 w-full bg-transparent outline-none"
+        className="ml-2.5 w-full bg-transparent text-sm text-gray-900 outline-none placeholder:text-gray-400 sm:ml-3 sm:text-base dark:text-white"
       />
 
       {value && (
         <button
           onClick={() => onChange("")}
-          className="rounded-lg p-1 hover:bg-gray-100"
+          className="shrink-0 rounded-lg p-1 text-gray-400 hover:bg-gray-100 hover:text-gray-600 dark:hover:bg-white/10"
         >
-          <X size={18} />
+          <X size={16} className="sm:hidden" />
+          <X size={18} className="hidden sm:block" />
         </button>
       )}
-
     </div>
   );
 }

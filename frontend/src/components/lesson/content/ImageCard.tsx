@@ -4,26 +4,16 @@ interface ImageCardProps {
   caption?: string;
 }
 
-export default function ImageCard({
-  src,
-  alt,
-  caption,
-}: ImageCardProps) {
+export default function ImageCard({ src, alt, caption }: ImageCardProps) {
   return (
-    <figure className="my-10 overflow-hidden rounded-2xl border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900">
-
-      <img
-        src={src}
-        alt={alt}
-        className="w-full object-cover"
-      />
+    <figure className="my-6 overflow-hidden rounded-xl border border-slate-200 bg-white sm:my-10 sm:rounded-2xl dark:border-white/10 dark:bg-[#111613]">
+      <img src={src} alt={alt} className="w-full object-cover" />
 
       {caption && (
-        <figcaption className="border-t border-slate-200 px-5 py-4 text-center text-sm text-slate-500 dark:border-slate-800 dark:text-slate-400">
+        <figcaption className="border-t border-slate-200 px-3 py-2.5 text-center text-xs text-slate-500 sm:px-5 sm:py-4 sm:text-sm dark:border-white/10 dark:text-slate-400">
           {caption}
         </figcaption>
       )}
-
     </figure>
   );
 }
