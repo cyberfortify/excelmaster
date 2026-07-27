@@ -4,10 +4,14 @@ import type { Lesson } from "../../data/lessonTypes";
 
 interface LessonHeaderProps {
   lesson: Lesson;
+  currentLessonNumber: number;
+  totalLessons: number;
 }
 
 export default function LessonHeader({
   lesson,
+  currentLessonNumber,
+  totalLessons,
 }: LessonHeaderProps) {
   return (
     <header className="mb-10 border-b border-slate-200 pb-8 dark:border-slate-800">
@@ -34,12 +38,15 @@ export default function LessonHeader({
         {lesson.title}
       </h1>
 
-      {/* Metadata */}
-      <div className="mt-6 flex items-center gap-6 text-sm text-slate-500 dark:text-slate-400">
+      <div className="mt-6 flex items-center justify-between text-sm text-slate-500 dark:text-slate-400">
 
         <div className="flex items-center gap-2">
           <Clock size={18} />
           <span>{lesson.duration}</span>
+        </div>
+
+        <div className="lg:hidden rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700 dark:border-emerald-800 dark:bg-emerald-900/20 dark:text-emerald-400">
+          {currentLessonNumber} / {totalLessons}
         </div>
 
       </div>

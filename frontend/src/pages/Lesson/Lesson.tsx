@@ -8,7 +8,6 @@ import {
 
 import LessonHeader from "../../components/lesson/LessonHeader";
 import LessonContent from "../../components/lesson/LessonContent";
-import MobileLessonSidebar from "../../components/lesson/MobileLessonSidebar";
 import LessonNavigation from "../../components/lesson/LessonNavigation";
 
 export default function Lesson() {
@@ -32,24 +31,20 @@ export default function Lesson() {
     return <Navigate to="/404" replace />;
   }
 
-  // Shared lesson progress from context
-  const {
-    loading,
-    progress,
-    completedLessons,
-    markComplete,
-    refreshProgress,
-  } = useLessonProgressContext();
+
+  const currentLessonNumber =
+    moduleLessons.findIndex(
+      item => item.slug === lesson.slug
+    ) + 1;
+
 
   return (
     <div className="mx-auto max-w-4xl">
 
-      <MobileLessonSidebar
-        currentSlug={lesson.slug}
-      />
-
       <LessonHeader
         lesson={lesson}
+        currentLessonNumber={currentLessonNumber}
+        totalLessons={moduleLessons.length}
       />
 
       <LessonContent
@@ -57,6 +52,7 @@ export default function Lesson() {
       />
 
       <LessonNavigation
+        currentLessonSlug={lesson.slug}
         previous={previousLesson}
         next={nextLesson}
         nextModule={nextModule}

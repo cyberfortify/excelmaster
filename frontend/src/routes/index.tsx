@@ -25,11 +25,6 @@ export default function AppRoutes() {
       <Route element={<MainLayout />}>
         <Route path="/" element={<Home />} />
         <Route path="/learn" element={<Learn />} />
-        <Route path="/lesson" element={<LessonLayout />}>
-          <Route path=":slug" element={<Lesson />} />
-        </Route>
-
-        
         <Route path="/practice" element={<Practice />} />
         <Route path="/projects" element={<Projects />} />
         <Route path="/interview" element={<Interview />} />
@@ -45,6 +40,10 @@ export default function AppRoutes() {
           }
         />
       </Route>
+
+      <Route path="/lesson" element={<LessonLayout />}>
+          <Route path=":slug" element={<Lesson />} />
+        </Route>
 
       {/* Lesson Pages */}
       <Route path="*" element={<NotFound />} />

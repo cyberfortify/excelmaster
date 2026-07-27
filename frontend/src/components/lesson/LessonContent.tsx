@@ -1,4 +1,6 @@
 import type { ComponentType } from "react";
+import { useRef, useEffect } from "react";
+import { useLessonProgressContext } from "../../context/LessonProgressContext";
 
 import IntroductionToExcel from "../../content/lessons/fundamentals/what-is-microsoft-excel";
 import InstallingMicrosoftExcel from "../../content/lessons/fundamentals/installing-microsoft-excel";
@@ -43,6 +45,54 @@ export default function LessonContent({
 }: LessonContentProps) {
 
 
+  const articleRef = useRef<HTMLElement>(null);
+
+  const {
+    setReadingProgress,
+  } = useLessonProgressContext();
+
+  useEffect(() => {
+    setReadingProgress(0);
+
+    const article = articleRef.current;
+    if (!article) return;
+
+    const handleScroll = () => {
+      const rect = article.getBoundingClientRect();
+
+      const articleTop = window.scrollY + rect.top;
+      const articleHeight = article.offsetHeight;
+      const viewportHeight = window.innerHeight;
+      const scrollY = window.scrollY;
+
+      const totalScrollable = articleHeight - viewportHeight;
+
+      if (totalScrollable <= 0) {
+        setReadingProgress(0);
+        return;
+      }
+
+      const current = scrollY - articleTop;
+
+      const percent = Math.max(
+        0,
+        Math.min(100, (current / totalScrollable) * 100)
+      );
+
+      setReadingProgress(Math.round(percent));
+    };
+
+    window.addEventListener("scroll", handleScroll, {
+      passive: true,
+    });
+
+    handleScroll();
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [slug, setReadingProgress]);
+
   // console.log(slug);
 
 
@@ -65,7 +115,10 @@ export default function LessonContent({
   }
 
   return (
-    <article className="prose prose-lg max-w-none dark:prose-invert ">
+    <article
+      ref={articleRef}
+      className="prose prose-lg max-w-none dark:prose-invert"
+    >
       <Content />
     </article>
   );

@@ -1,5 +1,9 @@
+import {
+  useLessonProgressContext,
+} from "../../context/LessonProgressContext";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
 
 interface LessonLink {
   title: string;
@@ -12,16 +16,49 @@ interface NextModule {
 }
 
 interface LessonNavigationProps {
+  currentLessonSlug: string;
   previous?: LessonLink;
   next?: LessonLink;
   nextModule?: NextModule;
 }
 
 export default function LessonNavigation({
+  currentLessonSlug,
   previous,
   next,
   nextModule,
 }: LessonNavigationProps) {
+
+  const navigate = useNavigate();
+
+  const {
+    readingProgress,
+    completedLessons,
+    markComplete,
+  } = useLessonProgressContext();
+
+  const handleNext = async (targetSlug: string) => {
+
+    const alreadyCompleted =
+      completedLessons.includes(currentLessonSlug);
+
+    if (!alreadyCompleted && readingProgress < 95) {
+
+      toast.error(
+        "Please complete this lesson before continuing."
+      );
+
+      return;
+    }
+
+    if (!alreadyCompleted) {
+      await markComplete();
+    }
+
+    navigate(`/lesson/${targetSlug}`);
+  };
+
+
   return (
     <div className="mt-16 border-t border-slate-200 pt-8 dark:border-slate-700">
 
@@ -53,8 +90,9 @@ export default function LessonNavigation({
 
         {/* Next Lesson */}
         {next ? (
-          <Link
-            to={`/lesson/${next.slug}`}
+          <button
+            type="button"
+            onClick={() => handleNext(next.slug)}
             className="group flex w-full items-center justify-between rounded-2xl bg-blue-600 p-5 text-white transition-all hover:bg-blue-700 md:ml-auto md:max-w-sm"
           >
             <div className="min-w-0">
@@ -70,13 +108,16 @@ export default function LessonNavigation({
             <div className="ml-4 flex h-10 w-10 items-center justify-center rounded-full bg-white/20 transition group-hover:bg-white/30">
               <ArrowRight size={20} />
             </div>
-          </Link>
+          </button>
         ) : nextModule ? (
 
           /* Last Lesson → Next Module */
 
-          <Link
-            to={`/lesson/${nextModule.firstLessonSlug}`}
+          <button
+            type="button"
+            onClick={() =>
+              handleNext(nextModule.firstLessonSlug)
+            }
             className="group flex w-full items-center justify-between rounded-2xl bg-emerald-600 p-5 text-white transition-all hover:bg-emerald-700 md:ml-auto md:max-w-sm"
           >
             <div className="min-w-0">
@@ -94,7 +135,7 @@ export default function LessonNavigation({
             <div className="ml-4 flex h-10 w-10 items-center justify-center rounded-full bg-white/20 transition group-hover:bg-white/30">
               <ArrowRight size={20} />
             </div>
-          </Link>
+          </button>
 
         ) : (
 

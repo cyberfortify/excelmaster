@@ -23,6 +23,7 @@ export default function useLessonProgress({
   totalLessons,
 }: UseLessonProgressProps) {
 
+  
   const [loading, setLoading] = useState(false);
 
   const [progress, setProgress] =
@@ -30,6 +31,9 @@ export default function useLessonProgress({
 
   const [completedLessons, setCompletedLessons] =
     useState<string[]>([]);
+
+  const [readingProgress, setReadingProgress] = useState(0);
+
 
   const loadProgress = async () => {
 
@@ -99,16 +103,21 @@ export default function useLessonProgress({
 
   return {
 
-    loading,
+  loading,
 
-    progress,
+  progress,
 
-    completedLessons,
+  completedLessons,
 
-    markComplete,
+  readingProgress,
 
-    refreshProgress: loadProgress,
+  setReadingProgress,
 
-  };
+  markComplete,
+
+  refreshProgress: loadProgress,
+
+
+};
 
 }
