@@ -1,3 +1,5 @@
+import type { LessonSection } from "../../data/lessonTypes";
+
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { lessonCategories } from "../../data/lessons";
@@ -17,9 +19,11 @@ export default function LessonSidebar({ currentSlug }: Props) {
   const [collapsedSections, setCollapsedSections] = useState<string[]>([]);
 
   const currentCategory = lessonCategories.find((category) => {
-    const sections = category.sections ?? [
-      { title: "", lessons: category.lessons ?? [] },
-    ];
+    const sections: LessonSection[] =
+      "sections" in category
+        ? category.sections
+        : [{ title: "", lessons: category.lessons }];
+
     return sections.some((section) =>
       section.lessons.some((lesson) => lesson.slug === currentSlug)
     );
@@ -27,14 +31,15 @@ export default function LessonSidebar({ currentSlug }: Props) {
 
   if (!currentCategory) return null;
 
-  const sections = currentCategory.sections ?? [
-    { title: "", lessons: currentCategory.lessons ?? [] },
-  ];
+  const sections: LessonSection[] =
+    "sections" in currentCategory
+      ? currentCategory.sections
+      : [{ title: "", lessons: currentCategory.lessons }];
 
-  const allLessons = sections.flatMap((s) => s.lessons);
-  const completedCount = allLessons.filter((l) =>
-    completedLessons.includes(l.slug)
-  ).length;
+  const allLessons = sections.flatMap((section: LessonSection) => section.lessons);
+  const completedCount = allLessons.filter((lesson) =>
+  completedLessons.includes(lesson.slug)
+).length;
   const overallPercent = allLessons.length
     ? Math.round((completedCount / allLessons.length) * 100)
     : 0;
@@ -86,11 +91,11 @@ export default function LessonSidebar({ currentSlug }: Props) {
 
       {/* Sections */}
       <div className="flex-1 overflow-y-auto p-4">
-        {sections.map((section, index) => {
+        {sections.map((section: LessonSection, index: number) => {
           const sectionKey = section.title || `section-${index}`;
           const isCollapsed = collapsedSections.includes(sectionKey);
-          const sectionCompleted = section.lessons.filter((l) =>
-            completedLessons.includes(l.slug)
+          const sectionCompleted = section.lessons.filter((lesson) =>
+            completedLessons.includes(lesson.slug)
           ).length;
 
           return (
@@ -149,16 +154,16 @@ export default function LessonSidebar({ currentSlug }: Props) {
                                     <CheckCircle2
                                       size={16}
                                       className={`shrink-0 ${isActive
-                                          ? "text-white"
-                                          : "text-[#1e8449] dark:text-emerald-400"
+                                        ? "text-white"
+                                        : "text-[#1e8449] dark:text-emerald-400"
                                         }`}
                                     />
                                   ) : (
                                     <Circle
                                       size={16}
                                       className={`shrink-0 ${isActive
-                                          ? "text-white/60"
-                                          : "text-slate-300 dark:text-slate-600"
+                                        ? "text-white/60"
+                                        : "text-slate-300 dark:text-slate-600"
                                         }`}
                                     />
                                   )}
@@ -171,14 +176,14 @@ export default function LessonSidebar({ currentSlug }: Props) {
                                   <div className="mt-2 pl-[26px]">
                                     <div
                                       className={`h-1.5 overflow-hidden rounded-full ${isActive
-                                          ? "bg-white/25"
-                                          : "bg-slate-200 dark:bg-slate-700"
+                                        ? "bg-white/25"
+                                        : "bg-slate-200 dark:bg-slate-700"
                                         }`}
                                     >
                                       <motion.div
                                         className={`h-full rounded-full ${isActive
-                                            ? "bg-white"
-                                            : "bg-[#1e8449] dark:bg-emerald-400"
+                                          ? "bg-white"
+                                          : "bg-[#1e8449] dark:bg-emerald-400"
                                           }`}
                                         initial={{ width: 0 }}
                                         animate={{ width: `${readingProgress}%` }}

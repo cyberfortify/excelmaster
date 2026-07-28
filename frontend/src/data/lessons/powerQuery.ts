@@ -1,6 +1,7 @@
 // src/data/lessons/powerQuery.ts
+import type { LessonCategoryWithSections } from "../lessonTypes";
 
-export const powerQuery = {
+export const powerQuery: LessonCategoryWithSections = {
   id: "power-query",
 
   level: 9,

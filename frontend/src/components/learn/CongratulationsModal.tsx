@@ -1,7 +1,25 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { Award, BookOpen, Clock, Rocket, Sparkles } from "lucide-react";
 
-export default function CongratulationsModal({ open, module, onStart }) {
+interface CongratulationsModalProps {
+  open: boolean;
+  module: {
+    title: string;
+    lessons: {
+      slug: string;
+      title: string;
+    }[];
+    duration: string;
+    difficulty: string;
+  };
+  onStart: () => void;
+}
+
+export default function CongratulationsModal({
+  open,
+  module,
+  onStart,
+}: CongratulationsModalProps) {
   return (
     <AnimatePresence>
       {open && (

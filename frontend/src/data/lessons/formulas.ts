@@ -1,6 +1,8 @@
 // src/data/lessons/formulas.ts
+import type { LessonCategoryWithSections } from "../lessonTypes";
 
-export const formulas = {
+
+export const formulas: LessonCategoryWithSections = {
   id: "formulas",
 
   level: 3,

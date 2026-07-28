@@ -12,7 +12,7 @@ export const startModule = async (
   return res.data;
 };
 
-export const getProgress = async () => {
+export const getProgress = async (): Promise<ModuleProgress[]> => {
   const res = await api.get("/progress");
   return res.data;
 };
@@ -49,6 +49,14 @@ export const getCompletedLessons = async (
 
   return res.data;
 };
+
+
+export interface ModuleProgress {
+  module_slug: string;
+  module_name: string;
+  progress: number;
+  status: "started" | "completed";
+}
 
 /* ===========================
    Lesson Progress

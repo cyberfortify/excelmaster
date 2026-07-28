@@ -1,6 +1,7 @@
 // src/data/lessons/dataAnalysis.ts
+import type { LessonCategoryWithSections } from "../lessonTypes";
 
-export const dataAnalysis = {
+export const dataAnalysis: LessonCategoryWithSections = {
   id: "data-analysis",
 
   level: 8,

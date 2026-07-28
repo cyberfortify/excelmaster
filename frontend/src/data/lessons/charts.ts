@@ -1,6 +1,7 @@
 // src/data/lessons/charts.ts
+import type { LessonCategoryWithSections } from "../lessonTypes";
 
-export const charts = {
+export const charts: LessonCategoryWithSections = {
   id: "charts",
 
   level: 6,

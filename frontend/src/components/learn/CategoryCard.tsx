@@ -1,3 +1,7 @@
+import type {
+  LessonCategory,
+  Lesson,
+} from "../../data/lessonTypes";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
@@ -12,16 +16,31 @@ import {
 import { startModule } from "../../api/progress";
 import CongratulationsModal from "./CongratulationsModal";
 
-export default function CategoryCard({ category, progress }) {
+
+interface CategoryProgress {
+  progress: number;
+  status: "started" | "completed";
+}
+
+interface CategoryCardProps {
+  category: LessonCategory;
+  progress?: CategoryProgress | null;
+}
+
+export default function CategoryCard({
+  category,
+  progress,
+}: CategoryCardProps) {
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
 
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
 
-  const lessons = category.sections
-    ? category.sections.flatMap((section) => section.lessons)
-    : category.lessons;
+  const lessons: Lesson[] =
+    "sections" in category
+      ? category.sections.flatMap((section) => section.lessons)
+      : category.lessons;
 
   const handleStartLearning = async () => {
 

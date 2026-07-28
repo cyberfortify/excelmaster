@@ -1,6 +1,7 @@
 // src/data/lessons/automation.ts
+import type { LessonCategoryWithSections } from "../lessonTypes";
 
-export const automation = {
+export const automation: LessonCategoryWithSections = {
   id: "automation",
 
   level: 10,

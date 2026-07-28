@@ -1,3 +1,4 @@
+import type { LessonCategory } from "../lessonTypes";
 import { fundamentals } from "./fundamentals";
 import { formatting } from "./formatting";
 import { formulas } from "./formulas";
@@ -9,7 +10,8 @@ import { dataAnalysis } from "./dataAnalysis";
 import { powerQuery } from "./powerQuery";
 import { automation } from "./automation";
 
-export const lessonCategories = [
+
+export const lessonCategories: LessonCategory[] = [
   fundamentals,
   formatting,
   formulas,

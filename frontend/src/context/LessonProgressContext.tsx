@@ -1,8 +1,9 @@
 import {
   createContext,
   useContext,
-  ReactNode,
 } from "react";
+
+import type { ReactNode } from "react";
 
 import useLessonProgress from "../hooks/useLessonProgress";
 

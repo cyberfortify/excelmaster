@@ -7,10 +7,12 @@ interface LessonCardProps {
 }
 
 export default function LessonCard({ lesson }: LessonCardProps) {
-  const difficultyColors = {
+  const difficultyColors: Record<string, string> = {
     Beginner: "bg-green-100 text-green-700",
     Intermediate: "bg-amber-100 text-amber-700",
     Advanced: "bg-red-100 text-red-700",
+    "Beginner → Intermediate": "bg-blue-100 text-blue-700",
+    "Intermediate → Advanced": "bg-purple-100 text-purple-700",
   };
 
   return (
@@ -24,27 +26,11 @@ export default function LessonCard({ lesson }: LessonCardProps) {
         </h3>
 
         <span
-          className={`rounded-full px-3 py-1 text-xs font-semibold ${
-            difficultyColors[lesson.difficulty]
-          }`}
+          className={`rounded-full px-3 py-1 text-xs font-semibold ${difficultyColors[lesson.difficulty]
+            }`}
         >
           {lesson.difficulty}
         </span>
-      </div>
-
-      <p className="mt-3 text-sm leading-6 text-gray-600">
-        {lesson.description}
-      </p>
-
-      <div className="mt-5 flex flex-wrap gap-2">
-        {lesson.tags.map((tag) => (
-          <span
-            key={tag}
-            className="rounded-full bg-gray-100 px-2.5 py-1 text-xs text-gray-600"
-          >
-            #{tag}
-          </span>
-        ))}
       </div>
 
       <div className="mt-6 flex items-center justify-between">

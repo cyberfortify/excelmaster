@@ -2,10 +2,6 @@ import { Navigate, useParams } from "react-router-dom";
 
 import useCurrentLesson from "../../hooks/useCurrentLesson";
 
-import {
-  useLessonProgressContext,
-} from "../../context/LessonProgressContext";
-
 import LessonHeader from "../../components/lesson/LessonHeader";
 import LessonContent from "../../components/lesson/LessonContent";
 import LessonNavigation from "../../components/lesson/LessonNavigation";

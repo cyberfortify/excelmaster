@@ -1,9 +1,9 @@
 import { ArrowRight, Clock, BookOpen } from "lucide-react";
 import { Link } from "react-router-dom";
-import type { LearningModule } from "../../data/modules";
+import type { Module } from "../../types/module";
 
 interface Props {
-  module: LearningModule;
+  module: Module;
 }
 
 export default function ModuleCard({ module }: Props) {

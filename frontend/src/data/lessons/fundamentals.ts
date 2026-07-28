@@ -1,6 +1,6 @@
 // src/data/lessons/fundamentals.ts
-
-export const fundamentals = {
+import type { LessonCategoryWithLessons } from "../lessonTypes";
+export const fundamentals: LessonCategoryWithLessons = {
   id: "fundamentals",
 
   level: 1,

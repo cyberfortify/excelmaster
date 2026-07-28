@@ -1,5 +1,5 @@
+import type { LessonSection } from "../../data/lessonTypes";
 import { useEffect, useMemo, useState } from "react";
-import { getProgress } from "../../api/progress";
 import { BookOpen, Clock, Target } from "lucide-react";
 
 import SearchBar from "../../components/learn/SearchBar";
@@ -7,10 +7,13 @@ import CategoryCard from "../../components/learn/CategoryCard";
 import SectionHeading from "../../components/ui/SectionHeading";
 
 import { lessonCategories } from "../../data/lessons";
+import { getProgress, type ModuleProgress } from "../../api/progress";
 
 export default function Learn() {
   const [search, setSearch] = useState("");
-  const [progressList, setProgressList] = useState([]);
+
+  const [progressList, setProgressList] =
+    useState<ModuleProgress[]>([]);
 
   const filteredCategories = useMemo(() => {
     if (!search.trim()) return lessonCategories;
@@ -18,22 +21,29 @@ export default function Learn() {
     const query = search.toLowerCase();
 
     return lessonCategories.filter((category) => {
-      const lessons = category.sections
-        ? category.sections.flatMap((section) => section.lessons)
-        : category.lessons;
-
+      const lessons =
+        "sections" in category
+          ? category.sections.flatMap(
+            (section: LessonSection) => section.lessons
+          )
+          : category.lessons;
       return (
         category.title.toLowerCase().includes(query) ||
         category.description.toLowerCase().includes(query) ||
-        lessons.some((lesson) => lesson.title.toLowerCase().includes(query))
+        lessons.some((lesson) =>
+          lesson.title.toLowerCase().includes(query)
+        )
       );
     });
   }, [search]);
 
   const totalLessons = lessonCategories.reduce((count, category) => {
-    const lessons = category.sections
-      ? category.sections.flatMap((section) => section.lessons)
-      : category.lessons;
+    const lessons =
+      "sections" in category
+        ? category.sections.flatMap(
+          (section: LessonSection) => section.lessons
+        )
+        : category.lessons;
 
     return count + lessons.length;
   }, 0);

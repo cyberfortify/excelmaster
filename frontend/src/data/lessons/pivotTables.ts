@@ -1,6 +1,7 @@
 // src/data/lessons/pivotTables.ts
+import type { LessonCategoryWithSections } from "../lessonTypes";
 
-export const pivotTables = {
+export const pivotTables: LessonCategoryWithSections = {
   id: "pivot-tables",
 
   level: 7,

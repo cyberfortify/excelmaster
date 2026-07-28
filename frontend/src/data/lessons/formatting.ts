@@ -1,6 +1,7 @@
 // src/data/lessons/formatting.ts
+import type { LessonCategoryWithLessons } from "../lessonTypes";
 
-export const formatting = {
+export const formatting: LessonCategoryWithLessons = {
   id: "formatting",
 
   level: 2,

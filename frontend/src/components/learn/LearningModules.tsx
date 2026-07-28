@@ -1,5 +1,5 @@
 import ModuleCard from "./ModuleCard";
-import { learningModules } from "../../data/modules";
+import { modules } from "../../data/modules";
 
 export default function LearningModules() {
   return (
@@ -21,7 +21,7 @@ export default function LearningModules() {
       </div>
 
       <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
-        {learningModules.map((module) => (
+        {modules.map((module) => (
           <ModuleCard
             key={module.id}
             module={module}

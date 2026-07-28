@@ -1,6 +1,8 @@
 // src/data/lessons/dataManagement.ts
+import type { LessonCategoryWithSections } from "../lessonTypes";
 
-export const dataManagement = {
+
+export const dataManagement: LessonCategoryWithSections = {
   id: "data-management",
 
   level: 4,

@@ -1,5 +1,6 @@
 import { getLessonBySlug } from "../utils/lesson";
 import { lessonCategories } from "../data/lessons";
+import type { LessonSection } from "../data/lessonTypes";
 
 interface UseCurrentLessonProps {
   slug?: string;
@@ -24,12 +25,15 @@ export default function useCurrentLesson({
 
   // Find current module
   const currentCategory = lessonCategories.find((category) => {
-    const sections = category.sections ?? [
-      {
-        title: "",
-        lessons: category.lessons ?? [],
-      },
-    ];
+    const sections: LessonSection[] =
+  "sections" in category
+    ? category.sections
+    : [
+        {
+          title: "",
+          lessons: category.lessons,
+        },
+      ];
 
     return sections.some((section) =>
       section.lessons.some(
@@ -51,11 +55,11 @@ export default function useCurrentLesson({
 
   // Lessons only from current module
   const moduleLessons =
-    currentCategory.sections?.flatMap(
-      (section) => section.lessons
-    ) ??
-    currentCategory.lessons ??
-    [];
+  "sections" in currentCategory
+    ? currentCategory.sections.flatMap(
+        (section) => section.lessons
+      )
+    : currentCategory.lessons;
 
   const currentIndex = moduleLessons.findIndex(
     (item) => item.slug === lesson.slug
@@ -85,10 +89,9 @@ export default function useCurrentLesson({
       : {
           title: nextCategory.title,
           firstLessonSlug:
-            (
-              nextCategory.sections?.[0]?.lessons?.[0] ??
-              nextCategory.lessons?.[0]
-            )?.slug,
+  "sections" in nextCategory
+    ? nextCategory.sections[0]?.lessons[0]?.slug
+    : nextCategory.lessons[0]?.slug,
         };
 
   return {
