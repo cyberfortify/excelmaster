@@ -64,11 +64,11 @@ const lessonContent: Record<string, ComponentType> = {
   "copy-cut-paste": CopyCutPaste,
   "autofill": AutoFill,
   "flash-fill": FlashFill,
-  "find-replace": FindReplace,
+  "find-and-replace": FindReplace,
   "font-formatting": FontFormatting,
   "cell-alignment": CellAlignment,
   "borders": Borders,
-  "fill-colors": FillColors,
+  "colors-and-fill": FillColors,
   "number-formats": NumberFormats,
   "date-time-formats": DateTimeFormats,
   "format-painter": FormatPainter,
@@ -78,7 +78,7 @@ const lessonContent: Record<string, ComponentType> = {
   "clear-formatting": ClearFormatting,
   "wrap-text": WrapText,
   "merge-cells": MergeCells,
-  "formatting-practice": FormattingPractice,
+  "formatting-practice-exercise": FormattingPractice,
 };
 
 export default function LessonContent({
