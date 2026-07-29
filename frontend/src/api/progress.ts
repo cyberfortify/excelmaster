@@ -14,6 +14,10 @@ export const startModule = async (
 
 export const getProgress = async (): Promise<ModuleProgress[]> => {
   const res = await api.get("/progress");
+
+  console.log("Progress Response:", res.data);
+  console.log("Is Array:", Array.isArray(res.data));
+
   return res.data;
 };
 
