@@ -18,11 +18,32 @@ import SplitWindow from "../../content/lessons/fundamentals/split-window";
 import ZoomAndViewOptions from "../../content/lessons/fundamentals/zoom-view-options";
 import PracticeExercise from "../../content/lessons/fundamentals/practice-exercise";
 
+// Formatting
+import CopyCutPaste from "../../content/lessons/formatting/copy-cut-paste";
+import AutoFill from "../../content/lessons/formatting/autofill";
+import FlashFill from "../../content/lessons/formatting/flash-fill";
+import FindReplace from "../../content/lessons/formatting/find-and-replace";
+import FontFormatting from "../../content/lessons/formatting/font-formatting";
+import CellAlignment from "../../content/lessons/formatting/cell-alignment";
+import Borders from "../../content/lessons/formatting/borders";
+import FillColors from "../../content/lessons/formatting/colors-and-fill";
+import NumberFormats from "../../content/lessons/formatting/number-formats";
+import DateTimeFormats from "../../content/lessons/formatting/date-time-formats";
+import FormatPainter from "../../content/lessons/formatting/format-painter";
+import CellStyles from "../../content/lessons/formatting/cell-styles";
+import Themes from "../../content/lessons/formatting/themes";
+import ConditionalFormattingBasics from "../../content/lessons/formatting/conditional-formatting-basics";
+import ClearFormatting from "../../content/lessons/formatting/clear-formatting";
+import WrapText from "../../content/lessons/formatting/wrap-text";
+import MergeCells from "../../content/lessons/formatting/merge-cells";
+import FormattingPractice from "../../content/lessons/formatting/formatting-practice-exercise";
+
 interface LessonContentProps {
   slug: string;
 }
 
 const lessonContent: Record<string, ComponentType> = {
+  // fundamentals
   "what-is-microsoft-excel": IntroductionToExcel,
   "installing-microsoft-excel": InstallingMicrosoftExcel,
   "excel-interface-overview": ExcelInterfaceOverview,
@@ -38,6 +59,26 @@ const lessonContent: Record<string, ComponentType> = {
   "split-window": SplitWindow,
   "zoom-and-view-options": ZoomAndViewOptions,
   "excel-fundamentals-practice": PracticeExercise,
+
+  // Formatting
+  "copy-cut-paste": CopyCutPaste,
+  "autofill": AutoFill,
+  "flash-fill": FlashFill,
+  "find-replace": FindReplace,
+  "font-formatting": FontFormatting,
+  "cell-alignment": CellAlignment,
+  "borders": Borders,
+  "fill-colors": FillColors,
+  "number-formats": NumberFormats,
+  "date-time-formats": DateTimeFormats,
+  "format-painter": FormatPainter,
+  "cell-styles": CellStyles,
+  "themes": Themes,
+  "conditional-formatting-basics": ConditionalFormattingBasics,
+  "clear-formatting": ClearFormatting,
+  "wrap-text": WrapText,
+  "merge-cells": MergeCells,
+  "formatting-practice": FormattingPractice,
 };
 
 export default function LessonContent({
